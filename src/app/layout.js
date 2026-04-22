@@ -5,6 +5,10 @@ export const metadata = {
   description: 'El software número 1 para cristaleros. Optimiza tus rutas, automatiza la facturación y gestiona a tus trabajadores desde una única app. Prueba gratuita.',
   keywords: 'software limpieza cristales, app cristaleros, rutas de limpieza, facturación limpieza, gestión de rutas',
   metadataBase: new URL('https://glassy.es'),
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     title: 'Glassy | Software para Empresas de Limpieza de Cristales',
     description: 'Ahorra horas organizando rutas y facturando. Software especializado para cristaleros.',
