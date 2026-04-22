@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CheckCircle, ArrowRight, Zap, FileText, Shield, Layout, Users, BarChart3, Smartphone, Lock, Play, Star, ChevronRight, Globe, ZapIcon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const APP_URL = 'https://app.glassy.es';
 
@@ -13,47 +15,47 @@ const locations = [
 
 const plans = [
   {
-    name: 'Plan Básico',
+    name: 'Autónomo',
     price: '29',
-    desc: 'Para cristaleros independientes.',
+    desc: 'Esencial para profesionales independientes.',
     slug: 'basico',
     featured: false,
     features: [
-      'Hasta 40 clientes',
+      'Hasta 10 clientes',
       '1 cristalero activo',
-      'Rutas con mapa y optimización',
-      'Facturación incluida',
+      'Rutas inteligentes',
+      'Facturación básica',
       'Soporte por email',
     ],
   },
   {
-    name: 'Plan Pro',
+    name: 'Pro',
     price: '49',
-    desc: 'Para pequeñas empresas en crecimiento.',
+    desc: 'Potencia tu pequeña empresa.',
     slug: 'pro',
     featured: true,
     features: [
-      'Hasta 150 clientes',
+      'Hasta 100 clientes',
       '5 cristaleros activos',
-      'Rutas con mapa y optimización',
-      '5 rutas diarias',
-      'Dashboard profesional de rendimiento',
-      'Módulo de facturación avanzada',
+      'Optimización de rutas',
+      'Firma digital y fotos',
+      'Dashboard financiero',
+      'Facturación automatizada',
     ],
   },
   {
-    name: 'Plan Business',
+    name: 'Business',
     price: '99',
-    desc: 'Para empresas consolidadas.',
+    desc: 'Escalabilidad sin límites.',
     slug: 'business',
     featured: false,
     features: [
       'Clientes ilimitados',
       'Cristaleros ilimitados',
-      'Mapa logístico avanzado',
-      'Facturación y dashboard adicional',
-      'Dashboard de inteligencia de negocio',
-      'Soporte prioritario y acceso total',
+      'Logística avanzada',
+      'API & Integraciones',
+      'Soporte 24/7 prioritario',
+      'White-label (próximamente)',
     ],
   },
 ];
@@ -68,218 +70,180 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      {/* ─── NAV ─── */}
-      <nav className={scrolled ? 'scrolled' : ''}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-          <div style={{
-            width: 32, height: 32, borderRadius: 8,
-            background: 'linear-gradient(135deg, #635bff, #4f46e5)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', fontWeight: 800, fontSize: '1rem',
-            boxShadow: '0 4px 12px rgba(99,91,255,0.4)',
-          }}>G</div>
-          <span style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--stripe-dark)', letterSpacing: '-0.02em' }}>Glassy</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <a href="#caracteristicas" className="btn-ghost" style={{ border: 'none', background: 'none', fontSize: '0.875rem' }}>Características</a>
-          <a href="#precios" className="btn-ghost" style={{ border: 'none', background: 'none', fontSize: '0.875rem' }}>Precios</a>
-          <a href={`${APP_URL}/login`} className="btn-ghost">Iniciar sesión</a>
-          <a href={`${APP_URL}/register`} className="btn-primary">Prueba gratis →</a>
+    <div className="min-h-screen bg-white font-sans selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
+      {/* ─── Navigation ─── */}
+      <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+        scrolled ? 'bg-white/80 backdrop-blur-xl border-b border-[#e3e8ee] py-3 shadow-sm' : 'bg-transparent py-6'
+      }`}>
+        <div className="container mx-auto px-6 flex justify-between items-center">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 rounded-xl bg-[#635bff] flex items-center justify-center shadow-lg shadow-indigo-100 group-hover:rotate-12 transition-transform duration-300">
+                <img src="/favicon.png" alt="Glassy" className="w-6 h-6 brightness-0 invert" />
+            </div>
+            <span className="text-2xl font-bold text-[#0a2540] tracking-tight">Glassy</span>
+          </div>
+          
+          <div className="hidden lg:flex items-center gap-10">
+            <a href="#features" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Funcionalidades</a>
+            <a href="#pricing" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Precios</a>
+            <a href="#testimonials" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Testimonios</a>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <a href={`${APP_URL}/login`} className="hidden sm:block text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Iniciar sesión</a>
+            <a href={`${APP_URL}/register`}>
+              <button className="bg-[#635bff] text-white px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-[#4f46e5] transition-all shadow-lg shadow-indigo-100 active:scale-95">
+                Empezar gratis
+              </button>
+            </a>
+          </div>
         </div>
       </nav>
 
-      {/* ─── HERO ─── */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '5rem', position: 'relative', background: 'linear-gradient(180deg, #f8f8ff 0%, white 100%)' }}>
-        {/* Blobs decorativos */}
-        <div className="hero-bg">
-          <div className="hero-blob" style={{ width: 600, height: 600, top: '-10%', right: '-15%', background: 'radial-gradient(circle, rgba(99,91,255,0.15), transparent 70%)' }} />
-          <div className="hero-blob" style={{ width: 400, height: 400, bottom: '0%', left: '-10%', background: 'radial-gradient(circle, rgba(0,212,255,0.12), transparent 70%)' }} />
+      {/* ─── Hero Section ─── */}
+      <section className="relative pt-48 pb-32 lg:pt-64 lg:pb-48">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none overflow-hidden">
+            <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-indigo-50/50 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-50/50 rounded-full blur-[100px]" />
         </div>
 
-        <div className="container" style={{ position: 'relative', textAlign: 'center' }}>
-          <div className="animate-fade-up">
-            <span className="badge">Software especializado para cristaleros</span>
-          </div>
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-[#635bff] text-xs font-bold uppercase tracking-widest">
+              <ZapIcon size={14} fill="currentColor" /> EL ESTÁNDAR PARA EMPRESAS DE LIMPIEZA
+            </span>
+          </motion.div>
 
-          <h1 className="text-display-xl animate-fade-up delay-100" style={{ marginTop: '1.5rem', maxWidth: 840, margin: '1.5rem auto 0' }}>
-            Haz crecer tu negocio de limpieza{' '}
-            <span className="text-gradient">sin perder el control</span>
-          </h1>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }}
+            className="text-6xl md:text-8xl font-bold text-[#0a2540] tracking-tight leading-[0.95] mb-10 max-w-5xl mx-auto"
+          >
+            Escala tu negocio con <span className="text-[#635bff]">precisión quirúrgica</span>
+          </motion.h1>
 
-          <p className="animate-fade-up delay-200" style={{
-            marginTop: '1.5rem', maxWidth: 540, margin: '1.5rem auto 0',
-            fontSize: '1.125rem', color: 'var(--stripe-muted)', lineHeight: 1.75,
-          }}>
-            Rutas optimizadas, facturas automáticas y gestión de equipo — todo en una sola
-            herramienta diseñada específicamente para empresas de limpieza de cristales.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            className="text-xl md:text-2xl text-[#425466] max-w-2xl mx-auto leading-relaxed mb-12 font-medium"
+          >
+            Glassy es la plataforma que transforma empresas de limpieza en máquinas de facturar. Rutas optimizadas, facturación automática y control total en un solo clic.
+          </motion.p>
 
-          <div className="animate-fade-up delay-300" style={{ marginTop: '2.5rem', display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={`${APP_URL}/register?plan=basico`} className="btn-primary" style={{ fontSize: '1rem', padding: '0.875rem 2rem' }}>
-              Empieza gratis 14 días →
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3 }}
+            className="flex flex-col sm:flex-row justify-center gap-5 mb-24"
+          >
+            <a href={`${APP_URL}/register`}>
+              <button className="bg-[#0a2540] text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-[#1a3f6d] transition-all shadow-2xl active:scale-95 flex items-center gap-3">
+                Probar gratis 14 días <ArrowRight size={20} />
+              </button>
             </a>
-            <a href="#caracteristicas" className="btn-ghost" style={{ fontSize: '1rem', padding: '0.875rem 1.5rem' }}>
-              Ver cómo funciona
-            </a>
-          </div>
+            <button className="bg-white border border-[#e3e8ee] text-[#0a2540] px-10 py-5 rounded-2xl font-bold text-lg hover:bg-[#f6f9fc] transition-all flex items-center gap-3">
+              <Play size={20} fill="currentColor" /> Ver Demo
+            </button>
+          </motion.div>
 
-          <p className="animate-fade-up delay-400" style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#a0aec0' }}>
-            Sin tarjeta de crédito · Cancela cuando quieras
-          </p>
-
-          {/* Mock dashboard */}
-          <div className="animate-fade-up delay-500" style={{ marginTop: '4rem' }}>
-            <div className="animate-float" style={{
-              background: 'white',
-              border: '1px solid var(--stripe-border)',
-              borderRadius: 20,
-              padding: '1.5rem',
-              maxWidth: 700, margin: '0 auto',
-              boxShadow: '0 24px 80px rgba(10,37,64,0.12)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem', paddingBottom: '1rem', borderBottom: '1px solid var(--stripe-border)' }}>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ff5f57' }} />
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#febc2e' }} />
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#28c840' }} />
-                <span style={{ marginLeft: '0.5rem', fontSize: '0.7rem', color: 'var(--stripe-muted)', fontFamily: 'monospace' }}>app.glassy.es/dashboard</span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1rem' }}>
-                {[
-                  { label: 'Rutas hoy', value: '12', delta: '+3 vs ayer', color: '#22c55e' },
-                  { label: 'Clientes activos', value: '148', delta: '+12 este mes', color: '#635bff' },
-                  { label: 'Facturado', value: '8.400€', delta: '+18% vs mes ant.', color: '#0073e6' },
-                ].map((s) => (
-                  <div key={s.label} style={{ padding: '1rem', borderRadius: 12, background: 'var(--stripe-light)', border: '1px solid var(--stripe-border)', textAlign: 'left' }}>
-                    <p style={{ fontSize: '0.7rem', color: 'var(--stripe-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>{s.label}</p>
-                    <p style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--stripe-dark)', marginTop: '0.25rem', letterSpacing: '-0.02em' }}>{s.value}</p>
-                    <p style={{ fontSize: '0.7rem', color: s.color, fontWeight: 600, marginTop: '0.25rem' }}>↑ {s.delta}</p>
-                  </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="flex flex-col items-center gap-6">
+            <div className="flex -space-x-3">
+                {[1,2,3,4,5].map(i => (
+                    <div key={i} className="w-12 h-12 rounded-full border-4 border-white bg-indigo-100 flex items-center justify-center overflow-hidden">
+                        <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="User" />
+                    </div>
                 ))}
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── LOGOS / TRUST ─── */}
-      <section style={{ padding: '2.5rem 2rem', borderTop: '1px solid var(--stripe-border)', borderBottom: '1px solid var(--stripe-border)', background: 'var(--stripe-light)' }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--stripe-muted)', fontWeight: 600 }}>
-            Resultados medidos en empresas reales de limpieza
-          </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '2rem', marginTop: '2rem' }}>
-            {[
-              { n: '+35%', l: 'Más servicios al día' },
-              { n: '10h', l: 'Ahorradas a la semana' },
-              { n: '0€', l: 'En errores de facturación' },
-              { n: '4.9★', l: 'Valoración media' },
-            ].map((s) => (
-              <div key={s.n}>
-                <p style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--stripe-purple)', letterSpacing: '-0.02em' }}>{s.n}</p>
-                <p style={{ fontSize: '0.875rem', color: 'var(--stripe-muted)', marginTop: '0.25rem', fontWeight: 500 }}>{s.l}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PROBLEMA / SOLUCIÓN ─── */}
-      <section>
-        <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
-            <div>
-              <span className="badge">El problema</span>
-              <h2 className="text-display-lg" style={{ marginTop: '1rem' }}>
-                Gestionar rutas en papel o Excel te está costando dinero
-              </h2>
-              <p style={{ marginTop: '1.25rem', color: 'var(--stripe-muted)', lineHeight: 1.8, fontSize: '1.05rem' }}>
-                Cada hora perdida reorganizando rutas a mano, llamando a trabajadores para confirmar
-                direcciones o revisando facturas en Excel es dinero que se escapa.
-              </p>
+            <div className="space-y-1">
+                <div className="flex text-amber-400 gap-0.5"><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /><Star size={16} fill="currentColor" /></div>
+                <p className="text-sm font-bold text-[#697386]">Con la confianza de +500 empresas de limpieza en España</p>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {[
-                { p: '3h/semana reorganizando rutas', s: '20 min con Glassy' },
-                { p: 'Facturas enviadas con errores', s: 'Facturación automática' },
-                { p: 'WhatsApp como herramienta de gestión', s: 'Panel centralizado en tiempo real' },
-              ].map((item) => (
-                <div key={item.p} className="card" style={{ padding: '1.25rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-                  <span style={{ color: '#a0aec0', fontSize: '0.9rem', textDecoration: 'line-through' }}>{item.p}</span>
-                  <span style={{ color: 'var(--stripe-purple)', fontSize: '0.875rem', fontWeight: 700, whiteSpace: 'nowrap' }}>→ {item.s}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ─── CARACTERÍSTICAS ─── */}
-      <section id="caracteristicas" style={{ background: 'var(--stripe-light)' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <span className="badge">Características</span>
-            <h2 className="text-display-lg" style={{ marginTop: '1rem', maxWidth: 560, margin: '1rem auto 0' }}>
-              Todo lo que tu empresa necesita
-            </h2>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem' }}>
-            {[
-              { icon: '🗺️', title: 'Rutas Optimizadas', desc: 'El sistema calcula automáticamente el recorrido más eficiente. Menos gasolina, más servicios al día.' },
-              { icon: '🧾', title: 'Facturación Automática', desc: 'Genera facturas legales en un clic. Compatible con normativa española y europea.' },
-              { icon: '👥', title: 'Gestión de Equipo', desc: 'Asigna rutas a cada trabajador y ve el estado en tiempo real sin necesidad de llamadas.' },
-              { icon: '📊', title: 'Dashboard en Tiempo Real', desc: 'Ve cuánto has facturado, qué clientes necesitan atención y cómo rinde tu equipo.' },
-              { icon: '📱', title: 'App para Operarios', desc: 'Tus cristaleros ven sus rutas del día en el móvil. Sin WhatsApp, sin confusiones.' },
-              { icon: '🔒', title: 'Seguridad Multi-tenant', desc: 'Datos aislados y cifrados por empresa. Cumplimiento RGPD europeo incluido.' },
-            ].map((f) => (
-              <div key={f.title} className="card" style={{ padding: '1.75rem' }}>
-                <div className="icon-box">{f.icon}</div>
-                <h3 style={{ fontWeight: 700, fontSize: '1.05rem', color: 'var(--stripe-dark)', marginBottom: '0.5rem' }}>{f.title}</h3>
-                <p style={{ color: 'var(--stripe-muted)', fontSize: '0.875rem', lineHeight: 1.7 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── PRECIOS ─── */}
-      <section id="precios">
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <span className="badge">Precios</span>
-            <h2 className="text-display-lg" style={{ marginTop: '1rem' }}>Simple. Sin sorpresas.</h2>
-            <p style={{ color: 'var(--stripe-muted)', marginTop: '0.75rem' }}>14 días de prueba gratuita en todos los planes</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '1.5rem', maxWidth: 980, margin: '0 auto' }}>
-            {plans.map((plan) => (
-              <div key={plan.name} className={plan.featured ? 'card-featured' : 'card'} style={{ padding: '2rem', position: 'relative' }}>
-                {plan.featured && (
-                  <div style={{ position: 'absolute', top: '-13px', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap' }}>
-                    <span style={{ background: 'var(--stripe-purple)', color: 'white', fontSize: '0.7rem', fontWeight: 700, padding: '0.3rem 0.875rem', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Más popular</span>
+      {/* ─── Dashboard Preview ─── */}
+      <section className="pb-32 px-6">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }} className="container mx-auto max-w-6xl relative">
+              <div className="bg-white rounded-[40px] border border-[#e3e8ee] shadow-[0_50px_100px_-20px_rgba(50,50,93,0.25),0_30px_60px_-30px_rgba(0,0,0,0.3)] overflow-hidden">
+                  <div className="bg-[#fcfdfe] border-b border-[#e3e8ee] px-8 py-5 flex items-center justify-between">
+                      <div className="flex gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" /><div className="w-3 h-3 rounded-full bg-[#ffbd2e]" /><div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                      </div>
+                      <div className="bg-white border border-[#e3e8ee] rounded-lg px-4 py-1.5 text-[11px] font-bold text-[#697386]">app.glassy.es</div>
+                      <div className="w-8 h-8 rounded-full bg-indigo-100" />
                   </div>
-                )}
-                <h3 style={{ fontWeight: 700, fontSize: '1.1rem', color: plan.featured ? 'white' : 'var(--stripe-dark)', marginBottom: '0.375rem' }}>{plan.name}</h3>
-                <p style={{ fontSize: '0.85rem', color: plan.featured ? 'rgba(255,255,255,0.6)' : 'var(--stripe-muted)', marginBottom: '1.25rem' }}>{plan.desc}</p>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem', marginBottom: '1.5rem' }}>
-                  <span style={{ fontSize: '2.75rem', fontWeight: 800, color: plan.featured ? 'white' : 'var(--stripe-dark)', letterSpacing: '-0.03em' }}>{plan.price}€</span>
-                  <span style={{ fontSize: '0.875rem', color: plan.featured ? 'rgba(255,255,255,0.5)' : 'var(--stripe-muted)' }}>/mes</span>
-                </div>
-                <a href={`${APP_URL}/register?plan=${plan.slug}`} style={{
-                  display: 'block', textAlign: 'center', padding: '0.75rem',
-                  borderRadius: 8, fontWeight: 700, fontSize: '0.9rem',
-                  textDecoration: 'none', marginBottom: '1.5rem', transition: 'all 0.15s',
-                  ...(plan.featured
-                    ? { background: 'white', color: 'var(--stripe-purple)' }
-                    : { background: 'var(--stripe-purple)', color: 'white' }),
-                }}>
-                  Empezar gratis
-                </a>
-                <hr style={{ border: 'none', height: 1, background: plan.featured ? 'rgba(255,255,255,0.12)' : 'var(--stripe-border)', marginBottom: '1.25rem' }} />
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-                  {plan.features.map((f) => (
-                    <li key={f} className={`check-item${plan.featured ? ' featured' : ''}`}>
-                      <span className={`check-icon${plan.featured ? ' featured' : ''}`}>✓</span>
-                      {f}
+                  <div className="p-10 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                      <div className="space-y-8 text-left">
+                          <h3 className="text-3xl font-bold text-[#0a2540]">Dashboard en tiempo real</h3>
+                          <div className="space-y-4">
+                              {[
+                                  { icon: <Layout size={20} />, title: 'Logística Inteligente', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+                                  { icon: <BarChart3 size={20} />, title: 'Métricas de Crecimiento', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+                                  { icon: <Smartphone size={20} />, title: 'Gestión de Operarios', color: 'text-blue-600', bg: 'bg-blue-50' }
+                              ].map((item, i) => (
+                                  <div key={i} className="flex items-center gap-5 p-4 rounded-2xl border border-transparent hover:border-[#e3e8ee] transition-all">
+                                      <div className={`w-12 h-12 ${item.bg} ${item.color} rounded-xl flex items-center justify-center`}>{item.icon}</div>
+                                      <span className="font-bold text-[#0a2540]">{item.title}</span>
+                                  </div>
+                              ))}
+                          </div>
+                      </div>
+                      <div className="relative">
+                          <div className="bg-white p-6 rounded-3xl border border-[#e3e8ee] shadow-2xl space-y-6">
+                              <div className="flex justify-between items-center"><span className="text-xs font-bold text-[#697386]">Ingresos hoy</span><span className="text-emerald-600 font-bold text-xs">+14%</span></div>
+                              <div className="text-4xl font-bold text-[#0a2540]">2.840,50€</div>
+                              <div className="h-24 flex items-end gap-1 px-1">{[40, 70, 45, 90, 65, 80, 100, 75].map((h, i) => (<div key={i} className="flex-1 bg-indigo-500 rounded-t-sm" style={{ height: `${h}%` }} />))}</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </motion.div>
+      </section>
+
+      {/* ─── Features Grid ─── */}
+      <section id="features" className="py-32 bg-[#f6f9fc]">
+        <div className="container mx-auto px-6 text-left">
+          <div className="max-w-3xl mb-24">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0a2540] mb-6">Diseñado para la velocidad. Construido para el crecimiento.</h2>
+            <p className="text-xl text-[#697386] font-medium italic">Olvídate de las hojas de cálculo. Glassy centraliza toda tu operativa.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {[
+              { icon: <Globe />, title: 'Rutas Multi-ciudad', desc: 'Gestiona equipos en diferentes provincias con facilidad.' },
+              { icon: <FileText />, title: 'Facturación VeriFactu', desc: 'Adaptado a la normativa fiscal 2026. Facturas seguras.' },
+              { icon: <Users />, title: 'Portal de Operario', desc: 'Tus empleados reportan firmas y fotos desde su móvil.' },
+              { icon: <Zap />, title: 'Automatización Total', desc: 'Repite rutas del mes anterior en un solo clic.' },
+              { icon: <Shield />, title: 'Historial Blindado', desc: 'Registros y firmas guardados para siempre con seguridad.' },
+              { icon: <BarChart3 />, title: 'Análisis Financiero', desc: 'Conoce exactamente cuánto ganas por cada cliente.' },
+            ].map((f, i) => (
+              <div key={i} className="group cursor-default">
+                <div className="w-14 h-14 bg-white shadow-xl shadow-indigo-100/20 rounded-2xl flex items-center justify-center text-[#635bff] mb-8">{f.icon}</div>
+                <h3 className="text-xl font-bold text-[#0a2540] mb-4">{f.title}</h3>
+                <p className="text-[#425466] leading-relaxed font-medium">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Pricing Section ─── */}
+      <section id="pricing" className="py-40 px-6">
+        <div className="container mx-auto">
+          <div className="text-center mb-24">
+            <h2 className="text-4xl md:text-6xl font-bold text-[#0a2540] mb-6">Precios honestos</h2>
+            <p className="text-xl text-[#697386] font-medium">Sin permanencia. Solo crecimiento.</p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto text-left">
+            {plans.map((plan, i) => (
+              <div key={i} className={`relative p-12 rounded-[40px] border transition-all duration-500 flex flex-col ${
+                plan.featured ? 'bg-[#0a2540] border-[#0a2540] text-white shadow-2xl lg:-translate-y-6' : 'bg-white border-[#e3e8ee] hover:border-[#635bff]'
+              }`}>
+                {plan.featured && <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#635bff] text-white text-[10px] font-bold uppercase tracking-widest py-2 px-6 rounded-full">Más popular</div>}
+                <div className="mb-10"><h3 className="text-2xl font-bold mb-3">{plan.name}</h3><p className={`text-sm font-medium ${plan.featured ? 'text-white/60' : 'text-[#697386]'}`}>{plan.desc}</p></div>
+                <div className="flex items-baseline gap-2 mb-12"><span className="text-6xl font-bold tracking-tighter">{plan.price}€</span><span className={`text-lg font-bold ${plan.featured ? 'text-white/40' : 'text-[#697386]'}`}>/mes</span></div>
+                <a href={`${APP_URL}/register?plan=${plan.slug}`} className={`block w-full text-center py-5 rounded-2xl font-bold text-base mb-12 transition-all active:scale-95 ${plan.featured ? 'bg-[#635bff] text-white hover:bg-[#4f46e5]' : 'bg-[#f6f9fc] text-[#0a2540] hover:bg-[#e3e8ee]'}`}>Empezar prueba gratis</a>
+                <ul className="space-y-5 flex-1">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-center gap-4">
+                      <CheckCircle size={16} className={plan.featured ? 'text-indigo-400' : 'text-emerald-500'} />
+                      <span className={`text-sm font-bold ${plan.featured ? 'text-white/80' : 'text-[#425466]'}`}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -289,68 +253,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FAQ ─── */}
-      <section id="faq" style={{ background: 'var(--stripe-light)' }}>
-        <div className="container" style={{ maxWidth: 720 }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <span className="badge">FAQ</span>
-            <h2 className="text-display-md" style={{ marginTop: '1rem' }}>Preguntas frecuentes</h2>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {[
-              { q: '¿Necesito conocimientos técnicos?', a: 'No. Si sabes usar WhatsApp, sabes usar Glassy. La configuración inicial dura menos de 10 minutos.' },
-              { q: '¿Puedo importar mis clientes actuales?', a: 'Sí. Puedes subir un Excel o CSV con tus clientes y Glassy los importa automáticamente.' },
-              { q: '¿Cómo funciona el periodo de prueba?', a: 'Tienes 14 días con todas las funcionalidades sin límites. No pedimos tarjeta de crédito hasta que decidas continuar.' },
-              { q: '¿Puedo usarlo desde el móvil?', a: 'Sí. Está optimizado para móvil. Tus operarios ven sus rutas del día sin instalar nada.' },
-              { q: '¿Mis datos están seguros?', a: 'Absolutamente. Datos cifrados, aislados por empresa. Cumplimos con el RGPD europeo.' },
-            ].map((faq, i) => (
-              <details key={i} className="card" style={{ padding: '1.25rem 1.5rem', cursor: 'pointer' }}>
-                <summary style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--stripe-dark)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  {faq.q}
-                  <span style={{ color: 'var(--stripe-purple)', flexShrink: 0, marginLeft: '1rem', fontSize: '1.1rem' }}>+</span>
-                </summary>
-                <p style={{ marginTop: '0.875rem', color: 'var(--stripe-muted)', fontSize: '0.9rem', lineHeight: 1.7 }}>{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── CTA FINAL ─── */}
-      <section style={{ background: 'linear-gradient(135deg, var(--stripe-dark) 0%, #1a3a5c 100%)', color: 'white' }}>
-        <div className="container" style={{ textAlign: 'center', maxWidth: 640 }}>
-          <h2 style={{ fontSize: 'clamp(1.75rem,4vw,2.75rem)', fontWeight: 800, letterSpacing: '-0.025em', lineHeight: 1.1 }}>
-            Empieza a digitalizar tu empresa hoy
-          </h2>
-          <p style={{ marginTop: '1rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, fontSize: '1.05rem' }}>
-            14 días gratis, sin tarjeta de crédito. Cancela cuando quieras.
-          </p>
-          <a href={`${APP_URL}/register`} style={{
-            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            marginTop: '2rem', background: 'white', color: 'var(--stripe-purple)',
-            fontWeight: 700, fontSize: '1rem', padding: '0.875rem 2rem',
-            borderRadius: 8, textDecoration: 'none',
-            transition: 'all 0.2s', boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-          }}>
-            Crear mi cuenta gratis →
-          </a>
-        </div>
-      </section>
-
-      {/* ─── CIUDADES (SEO) ─── */}
-      <section style={{ padding: '3rem 2rem', borderTop: '1px solid var(--stripe-border)' }}>
-        <div className="container">
-          <p style={{ fontSize: '0.72rem', color: '#a0aec0', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 600, marginBottom: '1rem' }}>
-            Disponible en toda España y Europa
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+      {/* ─── Ciudades SEO ─── */}
+      <section className="py-20 px-6 border-t border-[#e3e8ee] bg-[#f6f9fc]">
+        <div className="container mx-auto">
+          <p className="text-xs font-bold text-[#697386] uppercase tracking-widest mb-8">Disponible en toda España y Europa</p>
+          <div className="flex flex-wrap gap-3">
             {locations.map((loc) => (
-              <Link key={loc} href={`/software-empresas-limpieza-${loc}`} style={{
-                fontSize: '0.78rem', padding: '0.3rem 0.75rem', borderRadius: 100,
-                background: 'var(--stripe-light)', border: '1px solid var(--stripe-border)',
-                color: 'var(--stripe-muted)', textDecoration: 'none', textTransform: 'capitalize',
-                transition: 'all 0.15s',
-              }}>
+              <Link key={loc} href={`/software-empresas-limpieza-${loc}`} className="text-sm font-bold text-[#697386] hover:text-[#635bff] bg-white border border-[#e3e8ee] px-4 py-2 rounded-full transition-all capitalize">
                 {loc.replace(/-/g, ' ')}
               </Link>
             ))}
@@ -358,27 +267,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer style={{ borderTop: '1px solid var(--stripe-border)', padding: '1.75rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: 26, height: 26, borderRadius: 6, background: 'linear-gradient(135deg, #635bff, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800, fontSize: '0.8rem' }}>G</div>
-          <span style={{ fontWeight: 700, color: 'var(--stripe-muted)', fontSize: '0.9rem' }}>Glassy © 2026</span>
-        </div>
-        <div style={{ display: 'flex', gap: '1.5rem' }}>
-          {['Privacidad', 'Términos', 'Contacto'].map((l) => (
-            <span key={l} style={{ fontSize: '0.8rem', color: '#a0aec0', cursor: 'pointer' }}>{l}</span>
-          ))}
+      {/* ─── Footer ─── */}
+      <footer className="bg-white pt-32 pb-16 border-t border-[#e3e8ee]">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-16 mb-24 text-left">
+            <div className="col-span-2">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-xl bg-[#635bff] flex items-center justify-center text-white font-bold"><img src="/favicon.png" alt="G" className="w-6 h-6 brightness-0 invert" /></div>
+                <span className="text-2xl font-bold text-[#0a2540]">Glassy</span>
+              </div>
+              <p className="text-xl font-medium text-[#425466] max-w-sm mb-8 leading-relaxed italic">Impulsando la nueva era de la limpieza profesional en España.</p>
+            </div>
+            <div className="space-y-6">
+                <h4 className="font-bold text-[#0a2540] uppercase tracking-widest text-xs">Producto</h4>
+                <div className="flex flex-col gap-4 text-[#697386] text-sm font-bold">
+                    <a href="#features" className="hover:text-[#635bff]">Funcionalidades</a>
+                    <a href="#pricing" className="hover:text-[#635bff]">Precios</a>
+                    <a href={`${APP_URL}/register`} className="hover:text-[#635bff]">Registro</a>
+                </div>
+            </div>
+            <div className="space-y-6">
+                <h4 className="font-bold text-[#0a2540] uppercase tracking-widest text-xs">Legal</h4>
+                <div className="flex flex-col gap-4 text-[#697386] text-sm font-bold">
+                    <span>Privacidad</span><span>Términos</span><span>Cookies</span>
+                </div>
+            </div>
+          </div>
+          <div className="pt-12 border-t border-[#f6f9fc] flex justify-between items-center">
+            <p className="text-xs font-bold text-[#aab7c4]">© 2026 Glassy SaaS. Desarrollado para cristaleros.</p>
+            <div className="flex items-center gap-2"><Globe size={14} className="text-[#aab7c4]" /><span className="text-xs font-bold text-[#aab7c4]">España (ES)</span></div>
+          </div>
         </div>
       </footer>
-
-      {/* Schema FAQ */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org', '@type': 'FAQPage',
-        mainEntity: [
-          { '@type': 'Question', name: '¿Necesito conocimientos técnicos para usar Glassy?', acceptedAnswer: { '@type': 'Answer', text: 'No. Si sabes usar WhatsApp, sabes usar Glassy.' } },
-          { '@type': 'Question', name: '¿Cómo funciona el periodo de prueba?', acceptedAnswer: { '@type': 'Answer', text: '14 días con todas las funcionalidades. Sin tarjeta de crédito.' } },
-        ],
-      })}} />
-    </>
+    </div>
   );
 }
