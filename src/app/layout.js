@@ -49,22 +49,20 @@ export default function RootLayout({ children }) {
       priceCurrency: 'EUR',
       description: 'Prueba gratuita disponible',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      ratingCount: '127',
-    },
   };
 
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body className="antialiased selection:bg-indigo-100 selection:text-indigo-900">{children}</body>
     </html>
   );
 }
