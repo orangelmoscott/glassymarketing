@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, Zap, FileText, Shield, 
   Layout, Users, BarChart3, Smartphone, Lock, 
   Play, Star, ChevronRight, Globe, Menu, X, Bell,
-  Sparkles, Search, Map
+  Sparkles, Search, Map, Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
