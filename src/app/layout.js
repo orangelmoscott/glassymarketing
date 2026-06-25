@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Glassy | Software de Gestión para Empresas de Limpieza de Cristales',
@@ -62,7 +63,21 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
       </head>
-      <body className="antialiased selection:bg-indigo-100 selection:text-indigo-900">{children}</body>
+      <body className="antialiased selection:bg-indigo-100 selection:text-indigo-900">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MMBMNGL8SX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MMBMNGL8SX');
+          `}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }
