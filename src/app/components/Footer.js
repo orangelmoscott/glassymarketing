@@ -37,9 +37,9 @@ export default function Footer() {
           <div className="space-y-6">
             <h4 className="font-bold uppercase tracking-widest text-xs text-white/40">Legal</h4>
             <div className="flex flex-col gap-4 text-white/60 text-sm font-bold">
-              <a href={`${APP_URL}/privacidad`} className="hover:text-white" target="_blank" rel="noopener noreferrer">Privacidad</a>
-              <a href={`${APP_URL}/aviso-legal`} className="hover:text-white" target="_blank" rel="noopener noreferrer">Aviso Legal</a>
-              <a href={`${APP_URL}/privacidad`} className="hover:text-white" target="_blank" rel="noopener noreferrer">Cookies</a>
+              <Link href="/privacidad" className="hover:text-white">Privacidad</Link>
+              <Link href="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
+              <Link href="/cookies" className="hover:text-white">Cookies</Link>
             </div>
           </div>
         </div>

@@ -15,6 +15,9 @@ export default function sitemap() {
     { url: `${baseUrl}/funciones/facturacion/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/funciones/clientes/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/funciones/operarios/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/privacidad/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${baseUrl}/aviso-legal/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
+    { url: `${baseUrl}/cookies/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
   ];
 
   // Blog posts
