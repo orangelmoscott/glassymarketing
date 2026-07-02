@@ -30,11 +30,15 @@ const locations = [
 ];
 
 export async function generateStaticParams() {
-  return locations.map((loc) => ({ ciudad: loc.slug }));
+  return locations.map((loc) => ({ slug: `software-empresas-limpieza-${loc.slug}` }));
 }
 
 export async function generateMetadata({ params }) {
-  const { ciudad } = await params;
+  const { slug } = await params;
+  if (!slug || !slug.startsWith('software-empresas-limpieza-')) {
+    return {};
+  }
+  const ciudad = slug.replace('software-empresas-limpieza-', '');
   const loc = locations.find((l) => l.slug === ciudad);
   if (!loc) return {};
 
@@ -46,7 +50,11 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CityPage({ params }) {
-  const { ciudad } = await params;
+  const { slug } = await params;
+  if (!slug || !slug.startsWith('software-empresas-limpieza-')) {
+    notFound();
+  }
+  const ciudad = slug.replace('software-empresas-limpieza-', '');
   const loc = locations.find((l) => l.slug === ciudad);
   if (!loc) notFound();
 
