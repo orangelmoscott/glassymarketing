@@ -7,6 +7,7 @@ export default function sitemap() {
   const staticPages = [
     { url: baseUrl, lastModified: currentDate, changeFrequency: 'weekly', priority: 1.0 },
     { url: `${baseUrl}/precios/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/directorio/`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/blog/`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/llm-info/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
     { url: `${baseUrl}/industrias/limpieza-cristales/`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.9 },

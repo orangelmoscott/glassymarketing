@@ -30,6 +30,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4 text-white/60 text-sm font-bold">
               <Link href="/#features" className="hover:text-white">Funcionalidades</Link>
               <Link href="/precios" className="hover:text-white">Precios</Link>
+              <Link href="/directorio" className="hover:text-white">Directorio</Link>
               <a href={`${APP_URL}/register`} className="hover:text-white">Registro</a>
             </div>
           </div>

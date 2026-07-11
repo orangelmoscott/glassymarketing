@@ -33,6 +33,7 @@ export default function Header() {
             <Link href="/#features" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Funcionalidades</Link>
             <Link href="/precios" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Precios</Link>
             <Link href="/blog" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Blog</Link>
+            <Link href="/directorio" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Directorio</Link>
             <Link href="/industrias/limpieza-cristales" className="text-sm font-bold text-[#697386] hover:text-[#0a2540] transition-colors">Industria</Link>
           </div>
 
@@ -63,6 +64,7 @@ export default function Header() {
             <Link href="/#features" onClick={() => setMobileMenu(false)} className="text-2xl font-bold text-[#0a2540]">Funcionalidades</Link>
             <Link href="/precios" onClick={() => setMobileMenu(false)} className="text-2xl font-bold text-[#0a2540]">Precios</Link>
             <Link href="/blog" onClick={() => setMobileMenu(false)} className="text-2xl font-bold text-[#0a2540]">Blog</Link>
+            <Link href="/directorio" onClick={() => setMobileMenu(false)} className="text-2xl font-bold text-[#0a2540]">Directorio</Link>
             <Link href="/industrias/limpieza-cristales" onClick={() => setMobileMenu(false)} className="text-2xl font-bold text-[#0a2540]">Industria</Link>
             <a href={`${APP_URL}/login`} className="text-2xl font-bold text-[#697386]">Iniciar sesión</a>
             <a href={`${APP_URL}/register`}>
